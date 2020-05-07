@@ -1,2 +1,1 @@
-rootProject.name='My Media'
-include ':app'
+include ':app', ':aisound'
