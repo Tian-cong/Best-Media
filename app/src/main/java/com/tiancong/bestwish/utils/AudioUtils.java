@@ -1,11 +1,16 @@
 package com.tiancong.bestwish.utils;
 
 import android.app.Activity;
+import android.media.MediaRecorder;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.tiancong.bestwish.R;
+
+import java.io.File;
+import java.io.IOException;
 
 import io.microshow.aisound.AiSound;
 import io.microshow.rxffmpeg.RxFFmpegCommandList;
@@ -15,6 +20,45 @@ import io.microshow.rxffmpeg.RxFFmpegSubscriber;
 public class AudioUtils {
 
     private static final String TAG = "AudioUtils";
+
+    private static String mFilePath = "";
+    private static MediaRecorder recorder;
+
+
+    public static void startRecord() {
+
+        setFileNameAndPath();
+
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setOutputFile(mFilePath);
+        try {
+            recorder.prepare();
+            recorder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void stopRecord() {
+        if (recorder == null) {
+            return;
+        }
+        recorder.stop();
+        recorder.reset();
+        recorder.release();
+    }
+
+    private static void setFileNameAndPath() {
+        String mFileName = "voice"
+                + "_" + (System.currentTimeMillis()) + ".aac";
+        mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AAA/";
+        File file = new File(mFilePath);
+        if (!file.exists()) file.mkdirs();
+        mFilePath += mFileName;
+    }
 
 
     public static void playSound(final String path, final int type) {
@@ -37,9 +81,9 @@ public class AudioUtils {
     }
 
 
-    public static void runFFmpegRxJava(Activity activity,String inputPath,String outPath) {
+    public static void runFFmpegRxJava(Activity activity, String inputPath, String outPath) {
 
-        String[] commands = getBoxblur(inputPath,outPath);
+        String[] commands = getBoxblur(inputPath, outPath);
 
         MyRxFFmpegSubscriber myRxFFmpegSubscriber = new MyRxFFmpegSubscriber(activity);
 
@@ -50,7 +94,7 @@ public class AudioUtils {
 
     }
 
-    private static String[] getBoxblur(String inputPath,String outPath) {
+    private static String[] getBoxblur(String inputPath, String outPath) {
         RxFFmpegCommandList cmdlist = new RxFFmpegCommandList();
         cmdlist.append("-i");
         cmdlist.append(inputPath);
@@ -69,7 +113,7 @@ public class AudioUtils {
         private ProgressBar progressBar;
 
         MyRxFFmpegSubscriber(Activity activity) {
-            progressBar = (ProgressBar)activity.findViewById(R.id.progress_main);
+            progressBar = (ProgressBar) activity.findViewById(R.id.progress_main);
         }
 
         @Override
