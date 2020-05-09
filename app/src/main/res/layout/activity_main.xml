@@ -1,188 +1,64 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+
+    <Button
+        android:id="@+id/bt1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFF"
-        android:orientation="vertical"
-        android:paddingBottom="20dp">
+        android:text="开始"
+        android:onClick="bt1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="155dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_normal"
-                    style="@style/AudioImgStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon0" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="原声" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_luoli"
-                    style="@style/AudioImgStyle"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon_luoli" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="萝莉" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_dashu"
-                    style="@style/AudioImgStyle"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon2" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="大叔" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_jingsong"
-                    style="@style/AudioImgStyle"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon3" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="惊悚" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_gaoguai"
-                    style="@style/AudioImgStyle"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon4" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="搞怪" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_kongling"
-                    style="@style/AudioImgStyle"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon5" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="空灵" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_gaoguai2"
-                    style="@style/AudioImgStyle"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon3" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="搞怪2" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/btn_kongling2"
-                    style="@style/AudioImgStyle"
-                    android:onClick="clickFix"
-                    android:src="@mipmap/icon4" />
-
-                <TextView
-                    style="@style/AudioTextStyle"
-                    android:text="空灵2" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </LinearLayout>
+    <Button
+        android:id="@+id/bt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止"
+        android:onClick="bt2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="205dp"/>
 
     <ProgressBar
         android:id="@+id/progress_main"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/bt3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正放"
+        android:onClick="bt3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="400dp"/>
+
+    <Button
+        android:id="@+id/bt4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="倒放"
+        android:onClick="bt4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="480dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -7,13 +7,10 @@ import android.content.pm.PackageManager;
 
 import android.os.Build;
 import android.os.Bundle;
-
-import org.fmod.FMOD;
+import android.view.View;
 
 import com.tiancong.bestwish.R;
-import com.tiancong.bestwish.utils.AudioUtils;
-
-import io.microshow.aisound.AiSound;
+import com.tiancong.bestwish.utils.AudioManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,49 +23,30 @@ public class MainActivity extends AppCompatActivity {
 
         requestPermissions();
 
-        if (!FMOD.checkInit()) {
-            FMOD.init(this);
-        }
-
-        //AudioUtils.runFFmpegRxJava(this,inputPath,outPath);
-
-        try {
-            AudioUtils.startRecord();
-            Thread.sleep(4000);
-            AudioUtils.stopRecord();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        AiSound.pauseSound();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        AiSound.resumeSound();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (FMOD.checkInit()) {
-            FMOD.close();
-        }
     }
 
     private void requestPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             int REQUEST_CODE_CONTACT = 101;
-            String[] permissions = new String[] {
+            String[] permissions = new String[]{
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    Manifest.permission.RECORD_AUDIO };
+                    Manifest.permission.RECORD_AUDIO};
             //验证是否许可权限
             for (String str : permissions) {
                 if (this.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
@@ -78,5 +56,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void bt1(View view) {
+        AudioManager.getInStance(this).startRecord();
+    }
+
+    public void bt2(View view) {
+        AudioManager.getInStance(this).stopRecord();
+    }
+
+    public void bt3(View view) {
+        AudioManager.getInStance(this).playSound();
+    }
+
+    public void bt4(View view) {
+        AudioManager.getInStance(this).runFFmpegRxJava(this);
     }
 }
