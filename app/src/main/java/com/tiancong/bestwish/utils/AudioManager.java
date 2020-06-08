@@ -49,7 +49,6 @@ public class AudioManager {
     }
 
 
-
     public void startRecord() {
         Log.d(TAG, "startRecord: ");
 
@@ -58,6 +57,9 @@ public class AudioManager {
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        recorder.setAudioSamplingRate(16000);
+        recorder.setAudioEncodingBitRate(256000);
+        recorder.setAudioChannels(2);
         recorder.setOutputFile(mFilePath);
         try {
             recorder.prepare();
@@ -73,15 +75,29 @@ public class AudioManager {
             return;
         }
         recorder.stop();
-       // recorder.reset();
-       // recorder.release();
+        // recorder.reset();
+        // recorder.release();
     }
 
-    public  void playSound() {
+    public void playSound() {
         Log.d(TAG, "playSound: " + mFilePath);
 
         try {
             mediaPlayer.setDataSource(mFilePath);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            Thread.sleep((long) mediaPlayer.getDuration());
+            mediaPlayer.reset();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void playSound(String FilePath) {
+        Log.d(TAG, "playSound: " + FilePath);
+
+        try {
+            mediaPlayer.setDataSource(FilePath);
             mediaPlayer.prepare();
             mediaPlayer.start();
             Thread.sleep((long) mediaPlayer.getDuration());
@@ -99,8 +115,6 @@ public class AudioManager {
         if (!file.exists()) file.mkdirs();
         mFilePath += mFileName;
     }
-
-
 
 
     public static void playSound(final String path, final int type) {

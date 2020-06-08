@@ -1,21 +1,38 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\tc\\Desktop\\app\\keystore\\tiancong.jks')
+            storePassword '1q1q!Q!Q'
+            keyAlias = 'my_key'
+            keyPassword '111222'
+        }
+    }
+    compileSdkVersion targetSdkValue
     buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.tiancong.bestwish"
-        minSdkVersion 19
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion minSdkValue
+        targetSdkVersion targetSdkValue
+        versionCode versionCodeValue
+        versionName versionNameValue
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         ndk {
-            abiFilters "armeabi-v7a","arm64-v8a","x86","x86_64"
+            abiFilters "armeabi-v7a","x86", "arm64-v8a"
         }
+        signingConfig signingConfigs.debug
+    }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //这里修改apk文件名
+                outputFileName = "${variant.name}-v${variant.versionName}.apk"
+            }
     }
 
     buildTypes {
@@ -32,10 +49,21 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -47,6 +75,20 @@ dependencies {
 
     implementation 'com.github.microshow:RxFFmpeg:3.1.0'
     implementation 'com.github.yangjie10930:EpMedia:v0.9.5'
+
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+
+    implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+
     implementation project(path: ':aisound')
+    implementation project(path: ':base')
+    implementation project(path: ':network')
+
 
 }
