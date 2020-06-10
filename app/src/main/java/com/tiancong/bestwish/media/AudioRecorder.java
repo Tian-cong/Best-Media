@@ -1,9 +1,12 @@
-package com.tiancong.bestwish.utils;
+package com.tiancong.bestwish.media;
 
 import android.media.MediaRecorder;
 import android.os.Environment;
 import android.os.Handler;
 import android.text.format.DateFormat;
+
+import com.tiancong.bestwish.utils.FileUtils;
+import com.tiancong.bestwish.utils.LogHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,8 +38,8 @@ public class AudioRecorder {
     }
 
     private static void setFileNameAndPath() {
-        String mFileName = "voice"
-                + "_" + (DateFormat.format("MMdd_HHmmss", Calendar.getInstance(Locale.CHINA))) + ".aac";
+        String mFileName = "v"
+                + "_" + (DateFormat.format("HHmmss", Calendar.getInstance(Locale.CHINA))) + ".aac";
         mFilePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/AAA/";
         File file = new File(mFilePath);
         if (!file.exists()) file.mkdirs();
@@ -89,13 +92,13 @@ public class AudioRecorder {
                         float finalPer = per;
                         mHandler.post(() -> {
                             mOnVolumeChangeListener.volumeChange(finalPer);
-                            LogHelper.d("recorder_volumeChange: "+finalPer);
+                            LogHelper.d("recorder_volumeChange: " + finalPer);
                         });
                     }
 
                 }
             }
-        },0,1000);
+        }, 0, 1000);
     }
 
     public void stopRecorder() {
@@ -107,12 +110,22 @@ public class AudioRecorder {
         recorder.release();
         recorder = null;
         isRecording = false;
-
-        AudioPlayer.getInstance().runFFmpegRxJava(mFilePath);
     }
 
-    public void playRecorderSounds() {
-        AudioPlayer.getInstance().play(mFilePath);
+    public boolean playRecorderSounds() {
+        if (FileUtils.fileIsExists(mFilePath)) {
+            AudioPlayer.getInstance().play(mFilePath);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean playBackSounds() {
+        if (FileUtils.fileIsExists(mFilePath)) {
+            AudioPlayer.getInstance().playBack(mFilePath);
+            return true;
+        }
+        return false;
     }
 
     public interface OnVolumeChangeListener {

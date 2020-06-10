@@ -17,16 +17,14 @@ import androidx.databinding.DataBindingUtil;
 import com.tiancong.base.BaseActivity;
 import com.tiancong.bestwish.R;
 import com.tiancong.bestwish.databinding.ActivityMainBinding;
-import com.tiancong.bestwish.utils.AudioManager;
-import com.tiancong.bestwish.utils.AudioPlayer;
-import com.tiancong.bestwish.utils.AudioRecorder;
+import com.tiancong.bestwish.media.AudioPlayer;
+import com.tiancong.bestwish.media.AudioRecorder;
 import com.tiancong.bestwish.utils.LogHelper;
-import com.tiancong.bestwish.utils.RecorderUtil;
 import com.tiancong.bestwish.view.SpeechRadarView;
 
-public class MainActivity extends BaseActivity {
+import static com.tiancong.bestwish.utils.FileUtils.fileIsExists;
 
-    private static final String TAG = "MainActivity";
+public class MainActivity extends BaseActivity {
 
     ActivityMainBinding mainBinding;
 
@@ -65,7 +63,7 @@ public class MainActivity extends BaseActivity {
 
                         if (System.currentTimeMillis() - time < 1000) {
 
-                            Toast.makeText(getApplicationContext(),"你太短了",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),getString(R.string.too_short),Toast.LENGTH_SHORT).show();
                             mainBinding.SpeechRadarView.stopPlay();
                             return true;
                         }
@@ -113,22 +111,23 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    public void bt1(View view) {
-        AudioRecorder.getInstance().startRecorder();
-    }
-
-    public void bt2(View view) {
-        AudioRecorder.getInstance().stopRecorder();
-    }
-
     public void bt3(View view) {
-        AudioRecorder.getInstance().playRecorderSounds();
-        AudioPlayer.getInstance().getVolume(per -> {
-            mainBinding.soundView.setPerHeight(per);
-        });
+        if (AudioRecorder.getInstance().playRecorderSounds()) {
+            AudioPlayer.getInstance().getVolume(per -> {
+                mainBinding.soundView.setPerHeight(per);
+            });
+            return;
+        }
+        Toast.makeText(getApplicationContext(),getString(R.string.no_file),Toast.LENGTH_SHORT).show();
     }
 
     public void bt4(View view) {
-        AudioPlayer.getInstance().play("/storage/emulated/0/AAA/back.aac");
+        if (AudioRecorder.getInstance().playBackSounds()) {
+            AudioPlayer.getInstance().getVolume(per -> {
+                mainBinding.soundView.setPerHeight(per);
+            });
+            return;
+        }
+        Toast.makeText(getApplicationContext(),getString(R.string.no_file),Toast.LENGTH_SHORT).show();
     }
 }

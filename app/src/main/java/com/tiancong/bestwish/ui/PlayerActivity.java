@@ -11,8 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import com.tiancong.base.BaseActivity;
 import com.tiancong.bestwish.R;
 import com.tiancong.bestwish.databinding.ActivityMain2Binding;
-import com.tiancong.bestwish.utils.VideoPlayerIJK;
-import com.tiancong.bestwish.utils.VideoPlayerListener;
+import com.tiancong.bestwish.media.VideoPlayerIJK;
+import com.tiancong.bestwish.media.VideoPlayerListener;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;

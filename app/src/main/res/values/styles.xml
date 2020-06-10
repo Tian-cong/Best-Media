@@ -8,6 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme_List" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- 欢迎页背景引用刚才写好的 -->
         <item name="android:windowBackground">@drawable/bg_start</item>
@@ -55,4 +62,41 @@
             <enum name="singleLine" value="1" />
         </attr>
     </declare-styleable>
+
+    <style name="MyToolBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--更改溢出菜单文字颜色-->
+        <item name="android:textColor">@color/colorAccent</item>
+        <!--更改toolbar菜单文字大小，包括溢出菜单上的，和显示上的-->
+        <item name="android:textSize">25sp</item>
+        <!--更改toolbar上的菜单显示文字颜色-->
+        <item name="android:actionMenuTextColor">@color/colorPrimaryDark</item>
+        <!-- 设置Menu窗口不覆盖Toolbar视图 -->
+        <item name="overlapAnchor">false</item>
+
+        <!--设置title与navigationIcon的间隔-->
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetLeft">0dp</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Dark">
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:textColor">@color/dimgray</item>
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item> <!--新增一个item，用于控制menu-->
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--把该属性改为false即可使menu位置位于toolbar之下-->
+    </style>
+
+    <style name="text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="text_selector">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@drawable/tv_selector</item>
+    </style>
+
 </resources>

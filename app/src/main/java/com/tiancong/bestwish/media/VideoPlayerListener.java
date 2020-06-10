@@ -1,4 +1,4 @@
-package com.tiancong.bestwish.utils;
+package com.tiancong.bestwish.media;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 

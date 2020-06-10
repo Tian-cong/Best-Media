@@ -1,15 +1,11 @@
-package com.tiancong.bestwish.utils;
+package com.tiancong.bestwish.media;
 
-import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.AudioManager;
 import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
-import com.tiancong.bestwish.R;
+import com.tiancong.bestwish.utils.LogHelper;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -18,8 +14,9 @@ import java.util.TimerTask;
 import io.microshow.rxffmpeg.RxFFmpegCommandList;
 import io.microshow.rxffmpeg.RxFFmpegInvoke;
 import io.microshow.rxffmpeg.RxFFmpegSubscriber;
-import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.tiancong.bestwish.utils.FileUtils.setBackPath;
 
 public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 
@@ -30,6 +27,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
 
     private Timer mTimer;
     private final Handler mHandler;
+    private String outPath;
 
     private static class AudioPlayerHolder {
         private static AudioPlayer instance = new AudioPlayer();
@@ -72,6 +70,15 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void playBack(String path) {
+
+        outPath = setBackPath();
+        runFFmpegRxJava(path,outPath);
+
+
+
     }
 
     public void replay() {
@@ -163,7 +170,20 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
 
     public void runFFmpegRxJava(String FilePath) {
 
-        String[] commands = getBoxblur(FilePath, "/storage/emulated/0/AAA/back.aac");
+        String[] commands = getBoxblur(FilePath, "/storage/emulated/0/Music/back.aac");
+
+        MyRxFFmpegSubscriber myRxFFmpegSubscriber = new MyRxFFmpegSubscriber();
+
+        //开始执行FFmpeg命令
+        RxFFmpegInvoke.getInstance()
+                .runCommandRxJava(commands)
+                .subscribe(myRxFFmpegSubscriber);
+
+    }
+
+    public void runFFmpegRxJava(String FilePath,String outPath) {
+
+        String[] commands = getBoxblur(FilePath, outPath);
 
         MyRxFFmpegSubscriber myRxFFmpegSubscriber = new MyRxFFmpegSubscriber();
 
@@ -196,7 +216,7 @@ public class AudioPlayer implements MediaPlayer.OnCompletionListener, MediaPlaye
 
         @Override
         public void onFinish() {
-
+            play(outPath);
         }
 
         @Override
