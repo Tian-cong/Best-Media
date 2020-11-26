@@ -38,11 +38,11 @@ public class MainActivity extends BaseActivity {
 
         requestPermissions();
 
-        mainBinding.bt5.setOnClickListener(view -> {
+        mainBinding.btHistory.setOnClickListener(view -> {
             startActivity(new Intent(MainActivity.this,ListActivity.class));
         });
 
-         am = (android.media.AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        am = (android.media.AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
 
         mainBinding.SpeechRadarView.setOnTouchListener(new View.OnTouchListener() {
@@ -76,6 +76,10 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+
+        mainBinding.btPlay.setOnClickListener(v -> {
+            AudioPlayer.getInstance().play();
+        });
     }
 
     @Override
@@ -110,6 +114,8 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
+
 
     public void bt3(View view) {
         if (AudioRecorder.getInstance().playRecorderSounds()) {

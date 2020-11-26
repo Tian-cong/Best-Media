@@ -17,4 +17,7 @@
     <string name="too_short">你太短了</string>
     <string name="no_file">你还没有讲话</string>
 
+    <string name="fast_input_label">输入法</string>
+    <string name="fast_input_settings">输入法设置</string>
+
 </resources>

@@ -1,0 +1,22 @@
+<!-- 参考http://www.cnblogs.com/palance/p/5120048.html -->
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="10%p"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="90dp">
+
+    <Row android:verticalGap="10%p" android:rowEdgeFlags="top">
+        <Key android:codes="22" android:verticalGap="30%p" android:keyLabel="原声"
+             android:keyWidth="30%p" android:keyOutputText=""/>
+        <Key android:codes="33" android:verticalGap="30%p" android:keyLabel="倒放" android:horizontalGap="5%p"
+            android:keyWidth="30%p" android:keyOutputText=""/>
+        <Key android:codes="44" android:verticalGap="30%p" android:keyLabel="其他" android:horizontalGap="5%p"
+            android:keyWidth="30%p" android:keyOutputText=""/>
+    </Row>
+
+
+    <Row android:verticalGap="2%p" android:rowEdgeFlags="bottom">
+        <Key android:codes="32" android:horizontalGap="30%p" android:keyLabel="录音"
+            android:keyWidth="40%p" android:isRepeatable="false" android:keyOutputText=""/>
+    </Row>
+</Keyboard>

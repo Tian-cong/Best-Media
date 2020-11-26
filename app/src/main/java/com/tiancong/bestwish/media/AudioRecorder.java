@@ -19,7 +19,7 @@ public class AudioRecorder {
 
     private MediaRecorder recorder;
     private static String mFilePath = "";
-    private boolean isRecording;
+    public boolean isRecording;
 
     private Timer mTimer;
     private final Handler mHandler;
@@ -57,11 +57,20 @@ public class AudioRecorder {
         if (recorder == null) {
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS); //录音文件保存的格式，这里保存为 mp4
+            recorder.setOutputFile(mFilePath); // 设置录音文件的保存路径
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+            recorder.setAudioChannels(1);
+            // 设置录音文件的清晰度
+            recorder.setAudioSamplingRate(44100);
+            recorder.setAudioEncodingBitRate(192000);
+
+/*            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC_ELD);
             recorder.setAudioSamplingRate(16000);
             recorder.setAudioEncodingBitRate(256000);
-            recorder.setAudioChannels(2);
+            recorder.setAudioChannels(2);*/
             recorder.setOutputFile(mFilePath);
             try {
                 recorder.prepare();

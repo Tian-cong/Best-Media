@@ -23,22 +23,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity
-            android:name=".ui.SplashActivity"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
-        <activity android:name=".ui.MainActivity" />
+
+        <activity android:name=".ui.MainActivity" android:label="@string/fast_input_settings">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+
+        </activity>
 
         <activity android:name=".ui.PlayerActivity" />
 
         <activity
             android:name=".ui.ListActivity"
             android:theme="@style/AppTheme_List" />
+
+        <!-- Declares the input method service -->
+        <service android:name=".ime.FastInputIME"
+            android:label="@string/fast_input_label"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
+
+        <activity android:name=".ime.FastInputIMESettings"
+            android:label="@string/fast_input_settings">
+
+        </activity>
 
 
     </application>
